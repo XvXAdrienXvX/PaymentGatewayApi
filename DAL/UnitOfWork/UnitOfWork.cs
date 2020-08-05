@@ -1,6 +1,7 @@
 ﻿using DAL.Context;
 using DAL.Entities;
 using DAL.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -48,6 +49,18 @@ namespace DAL.UnitOfWork
             }
         }
         #endregion
+
+        public void Save()
+        {
+            try
+            {
+                _paymentDBContext.SaveChanges();
+            }
+            catch(DbUpdateException exc)
+            {
+
+            }
+        }
 
         public void Dispose()
         {

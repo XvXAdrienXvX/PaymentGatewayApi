@@ -4,9 +4,7 @@ using System.Text;
 
 namespace BusinessServices.DTO
 {
-    public class CustomerDTO
+    public class CardDetailsDTO
     {
-        public int CustomerD { get; set; }
-        public string Username { get; set; }
     }
 }

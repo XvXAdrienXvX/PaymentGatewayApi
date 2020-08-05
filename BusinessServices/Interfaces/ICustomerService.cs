@@ -9,5 +9,6 @@ namespace BusinessServices.Interfaces
     {
         CustomerDTO GetCustomerById(int customerId);
         IEnumerable<CustomerDTO> GetAllCustomers();
+        int CreatePayment(PaymentDTO entity);
     }
 }
