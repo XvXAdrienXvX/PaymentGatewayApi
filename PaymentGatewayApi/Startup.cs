@@ -4,7 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
+using BusinessServices;
 using BusinessServices.EntityMapper;
+using BusinessServices.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +38,8 @@ namespace PaymentGatewayApi
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddScoped(typeof(ICustomerService), typeof(CustomerService));
+            services.AddScoped(typeof(IMerchantService), typeof(MerchantService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

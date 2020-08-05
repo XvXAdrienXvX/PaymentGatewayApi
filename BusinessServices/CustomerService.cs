@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
+using BusinessEntities.Entities;
 using BusinessServices.DTO;
 using BusinessServices.Interfaces;
-using DAL.Entities;
 using DAL.UnitOfWork;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Transactions;
 
 namespace BusinessServices
@@ -21,7 +20,7 @@ namespace BusinessServices
             _mapper = mapper;
         }
 
-        public int CreatePayment(PaymentDTO entity)
+        public int CreatePayment(Payment entity)
         {
             // guarantees roll back as a single unit
             using (var scope = new TransactionScope())

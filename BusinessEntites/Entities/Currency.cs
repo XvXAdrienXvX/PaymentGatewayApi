@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DAL.Entities
+namespace BusinessEntities.Entities
 {
     public partial class Currency
     {

@@ -1,7 +1,5 @@
-﻿using System;
-using DAL.Entities;
+﻿using BusinessEntities.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DAL.Context
 {

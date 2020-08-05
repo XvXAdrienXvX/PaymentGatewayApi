@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
+using BusinessEntities.Entities;
 using BusinessServices.DTO;
-using DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessServices.EntityMapper
 {
