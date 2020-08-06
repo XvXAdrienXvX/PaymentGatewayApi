@@ -8,11 +8,6 @@ namespace BusinessServices
 {
     public class MerchantService : IMerchantService
     {
-        public int CreatePayment(CardDetailsDTO cardEntity)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<MerchantDTO> GetAllMerchants()
         {
             throw new NotImplementedException();

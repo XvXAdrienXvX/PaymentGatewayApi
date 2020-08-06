@@ -27,7 +27,18 @@ namespace BusinessServices
             {
                 var payment = new Payment
                 {
-                   Amount = entity.Amount
+                   UserId = entity.UserId,
+                   CurrencyId = entity.CurrencyId,
+                   Amount = entity.Amount,
+                   Status = entity.Status,
+                   CardDetails = new CardDetails
+                   {
+                       UserId = (int)entity.CardDetails.GetType().GetProperty("UserId").GetValue(entity.CardDetails),
+                       CardNumber = (int)entity.CardDetails.GetType().GetProperty("CardNumber").GetValue(entity.CardDetails),
+                       CardTypeId = (int)entity.CardDetails.GetType().GetProperty("CardTypeId").GetValue(entity.CardDetails),
+                       Cvv = (int)entity.CardDetails.GetType().GetProperty("Cvv").GetValue(entity.CardDetails),
+                       ExpiryDate = (DateTime)entity.CardDetails.GetType().GetProperty("ExpiryDate").GetValue(entity.CardDetails)
+                   }
                 };
                 _unitOfWork.PaymentRepository.Insert(payment);
                 _unitOfWork.Save();

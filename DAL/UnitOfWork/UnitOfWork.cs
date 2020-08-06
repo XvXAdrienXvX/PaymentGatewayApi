@@ -56,7 +56,7 @@ namespace DAL.UnitOfWork
             }
             catch(DbUpdateException exc)
             {
-
+                throw new Exception(exc.InnerException.Message);
             }
         }
 
