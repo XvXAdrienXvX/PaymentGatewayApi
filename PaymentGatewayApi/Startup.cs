@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using PaymentGatewayApi.Controllers;
 
 namespace PaymentGatewayApi
 {
@@ -42,6 +43,8 @@ namespace PaymentGatewayApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddScoped(typeof(ICustomerService), typeof(CustomerService));
             services.AddScoped(typeof(IMerchantService), typeof(MerchantService));
+            services.AddScoped(typeof(IPaymentService), typeof(PaymentService));
+            services.AddScoped(typeof(ILogger), typeof(PaymentController));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +62,8 @@ namespace PaymentGatewayApi
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BusinessEntities.Entities
+namespace BusinessEntites.Entities
 {
     public partial class MerchantAccount
     {

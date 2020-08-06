@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DAL.Repository
 {
@@ -10,7 +11,7 @@ namespace DAL.Repository
 
         IEnumerable<TEntity> GetAll();
 
-        void Insert(TEntity entity);
+        Task Insert(TEntity entity);
 
         void Delete(object Id);
 

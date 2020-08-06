@@ -1,8 +1,9 @@
-﻿using BusinessEntities.Entities;
+﻿using BusinessEntites.Entities;
 using DAL.Context;
 using DAL.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Threading.Tasks;
 
 namespace DAL.UnitOfWork
 {
@@ -48,11 +49,11 @@ namespace DAL.UnitOfWork
         }
         #endregion
 
-        public void Save()
+        public async Task Save()
         {
             try
             {
-                _paymentDBContext.SaveChanges();
+                await _paymentDBContext.SaveChangesAsync();
             }
             catch(DbUpdateException exc)
             {

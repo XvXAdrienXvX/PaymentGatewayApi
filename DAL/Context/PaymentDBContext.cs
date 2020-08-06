@@ -1,5 +1,7 @@
-﻿using BusinessEntities.Entities;
+﻿using System;
+using BusinessEntites.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DAL.Context
 {
@@ -73,7 +75,7 @@ namespace DAL.Context
             {
                 entity.Property(e => e.CurrencyId).HasColumnName("CurrencyID");
 
-                entity.Property(e => e.Abbreviation)
+                entity.Property(e => e.Code)
                     .HasMaxLength(3)
                     .IsUnicode(false);
 
@@ -84,8 +86,7 @@ namespace DAL.Context
 
             modelBuilder.Entity<Customer>(entity =>
             {
-                entity.HasKey(e => e.CustomerD)
-                    .HasName("PK__Customer__AA72BD0DCEB045F8");
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
@@ -138,6 +139,12 @@ namespace DAL.Context
 
                 entity.Property(e => e.CurrencyId).HasColumnName("CurrencyID");
 
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
+                entity.Property(e => e.ProcessedDate).HasColumnType("datetime");
+
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.HasOne(d => d.CardDetails)
@@ -152,6 +159,12 @@ namespace DAL.Context
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Payment_CurrencyID_Currency_CurrencyID");
 
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Payment)
+                    .HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Payment_CustomerID_Customer_CustomerID");
+
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Payment)
                     .HasForeignKey(d => d.UserId)
@@ -162,16 +175,12 @@ namespace DAL.Context
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__Users__1788CCAC509B3431");
+                    .HasName("PK__Users__1788CCAC988D36E4");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.Property(e => e.Email)
                     .HasMaxLength(150)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Password)
-                    .HasMaxLength(10)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Username)

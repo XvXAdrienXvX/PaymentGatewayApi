@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BusinessEntities.Entities;
+using BusinessEntites.Entities;
 using BusinessServices.DTO;
 using BusinessServices.Interfaces;
 using DAL.UnitOfWork;

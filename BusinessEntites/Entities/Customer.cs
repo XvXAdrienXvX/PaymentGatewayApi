@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BusinessEntities.Entities
+namespace BusinessEntites.Entities
 {
     public partial class Customer
     {
-        public int CustomerD { get; set; }
+        public Customer()
+        {
+            Payment = new HashSet<Payment>();
+        }
+
+        public int CustomerId { get; set; }
         public int UserId { get; set; }
         public string Username { get; set; }
 
         public virtual Users User { get; set; }
+        public virtual ICollection<Payment> Payment { get; set; }
     }
 }

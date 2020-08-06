@@ -1,8 +1,6 @@
-﻿using BusinessEntities.Entities;
+﻿using BusinessEntites.Entities;
 using BusinessServices.DTO;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessServices.Interfaces
 {
