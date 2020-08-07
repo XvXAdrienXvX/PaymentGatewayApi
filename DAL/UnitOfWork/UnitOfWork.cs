@@ -14,6 +14,7 @@ namespace DAL.UnitOfWork
         private IGenericRepository<Merchant> _merchantRepository;
         private IGenericRepository<Payment> _paymentRepository;
         private IGenericRepository<Users> _userRepository;
+        private IGenericRepository<CardDetails> _cardRepository;
 
         #region Repositories
         public IGenericRepository<Customer> CustomerRepository
@@ -45,6 +46,14 @@ namespace DAL.UnitOfWork
             get
             {
                 return _userRepository ?? (_userRepository = new GenericRepository<Users>(_paymentDBContext));
+            }
+        }
+
+        public IGenericRepository<CardDetails> CardRepository
+        {
+            get
+            {
+                return _cardRepository ?? (_cardRepository = new GenericRepository<CardDetails>(_paymentDBContext));
             }
         }
         #endregion

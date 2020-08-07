@@ -175,7 +175,7 @@ namespace DAL.Context
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__Users__1788CCAC988D36E4");
+                    .HasName("PK__Users__1788CCACCD3D8A08");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 

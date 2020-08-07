@@ -3,8 +3,6 @@ using BusinessServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace PaymentGatewayApi.Controllers
@@ -22,14 +20,17 @@ namespace PaymentGatewayApi.Controllers
             _logger = logger;
         }
 
-        // GET: api/Payment/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        // GET: api/Payment/GetPaymentDetailsById/1
+        [HttpGet("GetPaymentDetailsById/{id}")]
+        public async Task<IActionResult> GetPaymentDetailsById(int id)
         {
-            return "value";
+            var payment = await _paymentService.GetPaymentById(id);
+            if (payment != null)
+                return Ok(payment);
+            return NotFound();
         }
 
-        // POST: api/Payment
+        // POST: api/Payment/ProcessPayment
         [HttpPost("ProcessPayment")]
         public async Task<IActionResult> ProcessPayment([FromBody] Payment entity)
         {
