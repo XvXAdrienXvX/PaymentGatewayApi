@@ -21,6 +21,13 @@ namespace BusinessServices
             _mapper = mapper;
         }
 
+        public async Task<List<PaymentDTO>> GetAllPayments()
+        {
+            var paymentList = await _unitOfWork.PaymentRepository.GetAll();
+            var paymentListDTO = _mapper.Map<List<Payment>, List<PaymentDTO>>(paymentList);
+            return paymentListDTO;
+        }
+
         public async Task<List<CardDetails>> GetCardDetails()
         {
             var cardDetailsList = await _unitOfWork.CardRepository.GetAll();
@@ -64,7 +71,7 @@ namespace BusinessServices
             {
                 var payment = new Payment
                 {
-                    UserId = paymentEntity.UserId,
+                    MerchantId = paymentEntity.MerchantId,
                     CurrencyId = paymentEntity.CurrencyId,
                     OrderId = paymentEntity.OrderId,
                     Amount = paymentEntity.Amount,
@@ -76,7 +83,6 @@ namespace BusinessServices
                     },
                     CardDetails = new CardDetails
                     {
-                        UserId = cardDetails.UserId,
                         CustomerId = cardDetails.CustomerId,
                         CardNumber = cardDetails.CardNumber,                       
                         Cvv = cardDetails.Cvv,

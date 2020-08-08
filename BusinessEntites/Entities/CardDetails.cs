@@ -11,7 +11,6 @@ namespace BusinessEntites.Entities
         }
 
         public int CardDetailsId { get; set; }
-        public int UserId { get; set; }
         public int CardTypeId { get; set; }
         public int CustomerId { get; set; }
         public long CardNumber { get; set; }
@@ -20,7 +19,6 @@ namespace BusinessEntites.Entities
 
         public virtual CardType CardType { get; set; }
         public virtual Customer Customer { get; set; }
-        public virtual Users User { get; set; }
         public virtual ICollection<Payment> Payment { get; set; }
     }
 }

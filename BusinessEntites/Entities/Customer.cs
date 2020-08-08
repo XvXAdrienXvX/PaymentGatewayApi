@@ -11,10 +11,9 @@ namespace BusinessEntites.Entities
         }
 
         public int CustomerId { get; set; }
-        public int UserId { get; set; }
         public string Username { get; set; }
+        public string Email { get; set; }
 
-        public virtual Users User { get; set; }
         public virtual ICollection<CardDetails> CardDetails { get; set; }
     }
 }

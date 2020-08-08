@@ -21,6 +21,16 @@ namespace PaymentGatewayApi.Controllers
             _logger = logger;
         }
 
+        // GET: api/Payment/GetAllPayments
+        [HttpGet("GetAllPayments")]
+        public async Task<IActionResult> GetAllPayments()
+        {
+            var payments = await _paymentService.GetAllPayments();
+            if (payments != null)
+                return Ok(payments);
+            return NotFound();
+        }
+
         // GET: api/Payment/GetPaymentDetailsById/1
         [HttpGet("GetPaymentDetailsById/{id}")]
         public async Task<IActionResult> GetPaymentDetailsById(int id)

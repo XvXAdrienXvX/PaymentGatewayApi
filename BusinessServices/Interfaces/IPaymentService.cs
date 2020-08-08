@@ -10,5 +10,6 @@ namespace BusinessServices.Interfaces
         Task<int> ProcessPayment(PaymentDTO entity);
         Task<PaymentDTO> GetPaymentByCustomerId(object Id);
         Task<List<CardDetails>> GetCardDetails();
+        Task<List<PaymentDTO>> GetAllPayments();
     }
 }

@@ -1,5 +1,4 @@
-﻿using BusinessEntites.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace BusinessEntites.Entities
@@ -13,7 +12,7 @@ namespace BusinessEntites.Entities
 
         public int CurrencyId { get; set; }
         public string Name { get; set; }
-        public CurrencyEnum Code { get; set; }
+        public int Code { get; set; }
 
         public virtual ICollection<Payment> Payment { get; set; }
     }
