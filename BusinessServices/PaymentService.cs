@@ -40,13 +40,13 @@ namespace BusinessServices
         public async Task<PaymentDTO> GetPaymentByCustomerId(object Id)
         {
             var paymentDetails = await _unitOfWork.PaymentRepository.GetByIDAsync(Id);
-            var cardDetails = await _unitOfWork.CardRepository.GetByIDAsync(Id);
+            var cardDetails = await _unitOfWork.CardRepository.GetAll();
             var paymentDetailsDTO = _mapper.Map<Payment, PaymentDTO>(paymentDetails);
-            var cardDetailsDTO = _mapper.Map<CardDetails, CardDetailsDTO>(cardDetails);
+            var cardDetailsDTO = _mapper.Map<List<CardDetails>, List<CardDetailsDTO>>(cardDetails);
 
             if (paymentDetailsDTO != null)
             {
-                paymentDetailsDTO.CardDetails = cardDetailsDTO;
+                paymentDetailsDTO.CardDetails = cardDetailsDTO.Where(x => x.CardDetailsId == paymentDetails.CardDetailsId).FirstOrDefault();
                 return paymentDetailsDTO;
             }
             return null;
