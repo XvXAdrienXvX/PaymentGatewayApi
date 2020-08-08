@@ -1,4 +1,6 @@
-﻿using BusinessEntites.Entities;
+﻿using AutoMapper;
+using BusinessEntites.Entities;
+using BusinessServices.DTO;
 using BusinessServices.Interfaces;
 using DAL.UnitOfWork;
 using System.Collections.Generic;
@@ -11,10 +13,12 @@ namespace BusinessServices
     public class PaymentService : IPaymentService
     {
         private readonly UnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public PaymentService()
+        public PaymentService(IMapper mapper)
         {
             _unitOfWork = new UnitOfWork();
+            _mapper = mapper;
         }
 
         public async Task<List<CardDetails>> GetCardDetails()
@@ -33,40 +37,54 @@ namespace BusinessServices
             return null;
         }
 
-        public async Task<Payment> GetPaymentByCustomerId(object Id)
+        public async Task<PaymentDTO> GetPaymentByCustomerId(object Id)
         {
             var paymentDetails = await _unitOfWork.PaymentRepository.GetByIDAsync(Id);
             var cardDetails = await _unitOfWork.CardRepository.GetByIDAsync(Id);
-            if (paymentDetails != null)
+            var paymentDetailsDTO = _mapper.Map<Payment, PaymentDTO>(paymentDetails);
+            var cardDetailsDTO = _mapper.Map<CardDetails, CardDetailsDTO>(cardDetails);
+
+            if (paymentDetailsDTO != null)
             {
-                paymentDetails.CardDetails = cardDetails;
-                return paymentDetails;
+                paymentDetailsDTO.CardDetails = cardDetailsDTO;
+                return paymentDetailsDTO;
             }
             return null;
         }
 
-        public async Task<int> ProcessPayment(Payment entity)
+        public async Task<int> ProcessPayment(PaymentDTO entity)
         {
-            CardDetails cardDetails = entity.CardDetails;
+            Payment paymentEntity = _mapper.Map<PaymentDTO, Payment>(entity);
+            CardDetails cardDetails = paymentEntity.CardDetails;
+            Currency currency = paymentEntity.Currency;
+            CardType cardType = cardDetails.CardType;
+
             // guarantees roll back as a single unit
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 var payment = new Payment
                 {
-                    UserId = entity.UserId,
-                    CurrencyId = entity.CurrencyId,
-                    OrderId = entity.OrderId,
-                    Amount = entity.Amount,
-                    Status = entity.Status,
-                    ProcessedDate = entity.ProcessedDate,
+                    UserId = paymentEntity.UserId,
+                    CurrencyId = paymentEntity.CurrencyId,
+                    OrderId = paymentEntity.OrderId,
+                    Amount = paymentEntity.Amount,
+                    Status = paymentEntity.Status,
+                    ProcessedDate = paymentEntity.ProcessedDate,
+                    Currency = new Currency
+                    {
+                        Code = currency.Code
+                    },
                     CardDetails = new CardDetails
                     {
                         UserId = cardDetails.UserId,
                         CustomerId = cardDetails.CustomerId,
-                        CardNumber = cardDetails.CardNumber,
-                        CardTypeId = cardDetails.CardTypeId,
+                        CardNumber = cardDetails.CardNumber,                       
                         Cvv = cardDetails.Cvv,
-                        ExpiryDate = cardDetails.ExpiryDate
+                        ExpiryDate = cardDetails.ExpiryDate,
+                        CardType = new CardType
+                        {
+                            Name = cardType.Name
+                        }
                     }
                 };
                 await _unitOfWork.PaymentRepository.Insert(payment);

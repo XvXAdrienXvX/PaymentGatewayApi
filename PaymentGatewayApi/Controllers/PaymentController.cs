@@ -1,4 +1,5 @@
 ﻿using BusinessEntites.Entities;
+using BusinessServices.DTO;
 using BusinessServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -32,7 +33,7 @@ namespace PaymentGatewayApi.Controllers
 
         // POST: api/Payment/ProcessPayment
         [HttpPost("ProcessPayment")]
-        public async Task<IActionResult> ProcessPayment([FromBody] Payment entity)
+        public async Task<IActionResult> ProcessPayment([FromBody] PaymentDTO entity)
         {
             try {
                 if (entity == null)
