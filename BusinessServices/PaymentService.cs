@@ -33,13 +33,13 @@ namespace BusinessServices
             return null;
         }
 
-        public async Task<Payment> GetPaymentById(object Id)
+        public async Task<Payment> GetPaymentByCustomerId(object Id)
         {
             var paymentDetails = await _unitOfWork.PaymentRepository.GetByIDAsync(Id);
-            var cardDetailsList = await _unitOfWork.CardRepository.GetAll();
+            var cardDetails = await _unitOfWork.CardRepository.GetByIDAsync(Id);
             if (paymentDetails != null)
             {
-                paymentDetails.CardDetails.CardNumber = cardDetailsList.Where(x => x.CardDetailsId == paymentDetails.CardDetails.CardDetailsId).Select(y => y.CardNumber).FirstOrDefault();
+                paymentDetails.CardDetails = cardDetails;
                 return paymentDetails;
             }
             return null;
@@ -55,7 +55,6 @@ namespace BusinessServices
                 {
                     UserId = entity.UserId,
                     CurrencyId = entity.CurrencyId,
-                    CustomerId = entity.CustomerId,
                     OrderId = entity.OrderId,
                     Amount = entity.Amount,
                     Status = entity.Status,
@@ -63,6 +62,7 @@ namespace BusinessServices
                     CardDetails = new CardDetails
                     {
                         UserId = cardDetails.UserId,
+                        CustomerId = cardDetails.CustomerId,
                         CardNumber = cardDetails.CardNumber,
                         CardTypeId = cardDetails.CardTypeId,
                         Cvv = cardDetails.Cvv,

@@ -7,7 +7,6 @@ namespace BusinessEntites.Entities
     {
         public int PaymentId { get; set; }
         public int UserId { get; set; }
-        public int CustomerId { get; set; }
         public int OrderId { get; set; }
         public int CurrencyId { get; set; }
         public int CardDetailsId { get; set; }
@@ -17,7 +16,6 @@ namespace BusinessEntites.Entities
 
         public virtual CardDetails CardDetails { get; set; }
         public virtual Currency Currency { get; set; }
-        public virtual Customer Customer { get; set; }
         public virtual Users User { get; set; }
     }
 }

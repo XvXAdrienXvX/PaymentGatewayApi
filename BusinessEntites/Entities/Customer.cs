@@ -7,7 +7,7 @@ namespace BusinessEntites.Entities
     {
         public Customer()
         {
-            Payment = new HashSet<Payment>();
+            CardDetails = new HashSet<CardDetails>();
         }
 
         public int CustomerId { get; set; }
@@ -15,6 +15,6 @@ namespace BusinessEntites.Entities
         public string Username { get; set; }
 
         public virtual Users User { get; set; }
-        public virtual ICollection<Payment> Payment { get; set; }
+        public virtual ICollection<CardDetails> CardDetails { get; set; }
     }
 }

@@ -43,6 +43,8 @@ namespace DAL.Context
 
                 entity.Property(e => e.CardTypeId).HasColumnName("CardTypeID");
 
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
                 entity.Property(e => e.Cvv).HasColumnName("CVV");
 
                 entity.Property(e => e.ExpiryDate).HasColumnType("datetime");
@@ -54,6 +56,12 @@ namespace DAL.Context
                     .HasForeignKey(d => d.CardTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CardDetails_CardTypeID_CardType_CardTypeID");
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.CardDetails)
+                    .HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CardDetails_CustomerID_Customer_CustomerID");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.CardDetails)
@@ -139,8 +147,6 @@ namespace DAL.Context
 
                 entity.Property(e => e.CurrencyId).HasColumnName("CurrencyID");
 
-                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
-
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
                 entity.Property(e => e.ProcessedDate).HasColumnType("datetime");
@@ -159,12 +165,6 @@ namespace DAL.Context
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Payment_CurrencyID_Currency_CurrencyID");
 
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.Payment)
-                    .HasForeignKey(d => d.CustomerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Payment_CustomerID_Customer_CustomerID");
-
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Payment)
                     .HasForeignKey(d => d.UserId)
@@ -175,7 +175,7 @@ namespace DAL.Context
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__Users__1788CCACCD3D8A08");
+                    .HasName("PK__Users__1788CCAC76C2B5ED");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 

@@ -24,7 +24,7 @@ namespace PaymentGatewayApi.Controllers
         [HttpGet("GetPaymentDetailsById/{id}")]
         public async Task<IActionResult> GetPaymentDetailsById(int id)
         {
-            var payment = await _paymentService.GetPaymentById(id);
+            var payment = await _paymentService.GetPaymentByCustomerId(id);
             if (payment != null)
                 return Ok(payment);
             return NotFound();

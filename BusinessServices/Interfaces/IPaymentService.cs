@@ -7,7 +7,7 @@ namespace BusinessServices.Interfaces
     public interface IPaymentService
     {
         Task<int> ProcessPayment(Payment entity);
-        Task<Payment> GetPaymentById(object Id);
+        Task<Payment> GetPaymentByCustomerId(object Id);
         Task<List<CardDetails>> GetCardDetails();
     }
 }
