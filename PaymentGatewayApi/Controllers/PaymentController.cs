@@ -72,6 +72,7 @@ namespace PaymentGatewayApi.Controllers
             }         
         }
 
+        [HttpPut("UpdatePayment")]
         public async Task<bool> Put(int id, [FromBody]PaymentDTO entity)
         {
             if (id > 0)

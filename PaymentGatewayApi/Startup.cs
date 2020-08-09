@@ -45,6 +45,17 @@ namespace PaymentGatewayApi
             services.AddScoped(typeof(IMerchantService), typeof(MerchantService));
             services.AddScoped(typeof(IPaymentService), typeof(PaymentService));
             services.AddScoped(typeof(ILogger), typeof(PaymentController));
+
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction.SwaggerDoc("PaymentGatewayAPISpecification", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
+                    Title = "PaymentGateway API",
+                    Version = "1"
+
+                });
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +72,11 @@ namespace PaymentGatewayApi
             }
 
             app.UseHttpsRedirection();
+            app.UseSwagger();
+            app.UseSwaggerUI(setupAction => {
+                setupAction.SwaggerEndpoint("/swagger/PaymentGatewayAPISpecification/swagger.json", "PaymentGateway API");
+                setupAction.RoutePrefix = "";
+            });
             app.UseMvc();
 
             
