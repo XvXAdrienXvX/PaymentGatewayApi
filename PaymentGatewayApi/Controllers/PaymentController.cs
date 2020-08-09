@@ -21,9 +21,14 @@ namespace PaymentGatewayApi.Controllers
             _logger = logger;
         }
 
+        public PaymentController(IPaymentService paymentService)
+        {
+            _paymentService = paymentService;
+        }
+
         // GET: api/Payment/GetAllPayments
         [HttpGet("GetAllPayments")]
-        public async Task<IActionResult> GetAllPayments()
+        public async Task<ActionResult> GetAllPayments()
         {
             var payments = await _paymentService.GetAllPayments();
             if (payments != null)

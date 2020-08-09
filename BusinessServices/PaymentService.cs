@@ -58,7 +58,7 @@ namespace BusinessServices
             return null;
         }
 
-        public async Task<PaymentDTO> GetPaymentById(object Id)
+        public async Task<PaymentDTO> GetPaymentById(int Id)
         {
             var paymentDetails = await _unitOfWork.PaymentRepository.GetByIDAsync(Id);
             var cardDetails = await _unitOfWork.CardRepository.GetAll();
