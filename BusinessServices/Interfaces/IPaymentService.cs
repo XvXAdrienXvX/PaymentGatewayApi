@@ -8,8 +8,10 @@ namespace BusinessServices.Interfaces
     public interface IPaymentService
     {
         Task<int> ProcessPayment(PaymentDTO entity);
-        Task<PaymentDTO> GetPaymentByCustomerId(object Id);
+        Task<PaymentDTO> GetPaymentById(object Id);
         Task<List<CardDetails>> GetCardDetails();
         Task<List<PaymentDTO>> GetAllPayments();
+        Task<bool> UpdatePayment(List<PaymentDTO> entityList);
+        Task<bool> UpdatePaymentById(int Id , PaymentDTO entity);
     }
 }

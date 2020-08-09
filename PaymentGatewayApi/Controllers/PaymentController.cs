@@ -35,7 +35,7 @@ namespace PaymentGatewayApi.Controllers
         [HttpGet("GetPaymentDetailsById/{id}")]
         public async Task<IActionResult> GetPaymentDetailsById(int id)
         {
-            var payment = await _paymentService.GetPaymentByCustomerId(id);
+            var payment = await _paymentService.GetPaymentById(id);
             if (payment != null)
                 return Ok(payment);
             return NotFound();
@@ -70,6 +70,15 @@ namespace PaymentGatewayApi.Controllers
                 _logger.LogInformation($"Something went wrong inside ProcessPayment action: {exc.Message}");
                 return StatusCode(500, "Internal server error"); 
             }         
+        }
+
+        public async Task<bool> Put(int id, [FromBody]PaymentDTO entity)
+        {
+            if (id > 0)
+            {
+                return await _paymentService.UpdatePaymentById(id, entity);
+            }
+            return false;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BusinessEntites.Entities
 {
@@ -13,7 +14,9 @@ namespace BusinessEntites.Entities
         public int CardDetailsId { get; set; }
         public int CardTypeId { get; set; }
         public int CustomerId { get; set; }
-        public long CardNumber { get; set; }
+        [Required(ErrorMessage = "Card Number Required")]
+        [DataType(DataType.CreditCard)]
+        public string CardNumber { get; set; }
         public int Cvv { get; set; }
         public DateTime ExpiryDate { get; set; }
 

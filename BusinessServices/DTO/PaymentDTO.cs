@@ -6,6 +6,7 @@ namespace BusinessServices.DTO
 {
     public class PaymentDTO
     {
+        public int PaymentId { get; set; }
         public int MerchantId { get; set; }
         public int OrderId { get; set; }
         public int CardDetailsId { get; set; }

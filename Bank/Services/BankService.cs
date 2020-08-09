@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using Bank.DTO;
+using Bank.Enums;
 using Newtonsoft.Json;
 
 namespace Bank.Services
@@ -37,7 +39,36 @@ namespace Bank.Services
                 Console.WriteLine("Internal server Error");
             }
 
+            // get pending payments only from list of payments
+            var pendingPayments = GetPendingPayments(payments, x => (PaymentStatus)x.Status == PaymentStatus.Pending);
+
+            // return response to gateway api
+            await PutPayment(pendingPayments);
+
+
             return payments;
+        }
+
+        public async Task<HttpStatusCode> PutPayment(List<PaymentDTO> entity)
+        {
+            var jsonString = JsonConvert.SerializeObject(entity);
+
+            HttpContent httpContent = new StringContent(jsonString);
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            HttpResponseMessage Response = await _client.PutAsync("api/Payment/GetAllPayments", httpContent);
+
+            if (Response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Payment Response successfull");
+            }
+
+            return Response.StatusCode;
+        }
+
+        private List<PaymentDTO> GetPendingPayments(List<PaymentDTO> payments, Func<PaymentDTO, bool> filter)
+        {
+            return payments.Where(filter).ToList();
         }
     }
 }

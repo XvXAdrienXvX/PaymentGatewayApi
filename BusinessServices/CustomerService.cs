@@ -32,7 +32,7 @@ namespace BusinessServices
                    Status = entity.Status,
                    CardDetails = new CardDetails
                    {
-                       CardNumber = (int)entity.CardDetails.GetType().GetProperty("CardNumber").GetValue(entity.CardDetails),
+                       CardNumber = (string)entity.CardDetails.GetType().GetProperty("CardNumber").GetValue(entity.CardDetails),
                        CardTypeId = (int)entity.CardDetails.GetType().GetProperty("CardTypeId").GetValue(entity.CardDetails),
                        Cvv = (int)entity.CardDetails.GetType().GetProperty("Cvv").GetValue(entity.CardDetails),
                        ExpiryDate = (DateTime)entity.CardDetails.GetType().GetProperty("ExpiryDate").GetValue(entity.CardDetails)
