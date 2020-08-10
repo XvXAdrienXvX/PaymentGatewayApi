@@ -4,6 +4,8 @@ using BusinessServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PaymentGatewayApi.Controllers
@@ -19,11 +21,6 @@ namespace PaymentGatewayApi.Controllers
         {
             _paymentService = paymentService;
             _logger = logger;
-        }
-
-        public PaymentController(IPaymentService paymentService)
-        {
-            _paymentService = paymentService;
         }
 
         // GET: api/Payment/GetAllPayments
@@ -77,12 +74,22 @@ namespace PaymentGatewayApi.Controllers
             }         
         }
 
-        [HttpPut("UpdatePayment")]
+        [HttpPut("UpdatePaymentById")]
         public async Task<bool> Put(int id, [FromBody]PaymentDTO entity)
         {
             if (id > 0)
             {
                 return await _paymentService.UpdatePaymentById(id, entity);
+            }
+            return false;
+        }
+
+        [HttpPut("UpdatePayment")]
+        public async Task<bool> UpdatePayment([FromBody] List<PaymentDTO> entity)
+        {
+            if (entity.Any())
+            {
+                return await _paymentService.UpdatePayment(entity);
             }
             return false;
         }

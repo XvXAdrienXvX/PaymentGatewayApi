@@ -23,6 +23,10 @@ namespace BusinessServices
                     entity.Status = (int)PaymentStatus.Approved;
                 }
             }
+            else
+            {
+                throw new Exception("Invalid Card Number Format");
+            }
 
             return entity;
         }

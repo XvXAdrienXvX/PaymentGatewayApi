@@ -1,6 +1,7 @@
 using BusinessServices.DTO;
 using BusinessServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using PaymentGatewayApi.Controllers;
 using PaymentGatewayTest.Fake;
 using System;
@@ -12,11 +13,12 @@ namespace PaymentGatewayTest
     {
         private PaymentController _paymentController;
         private IPaymentService _paymentService;
+        private readonly ILogger<PaymentController> _logger;
 
         public PaymentControllerTest()
         {
             _paymentService = new PaymentServiceFake();
-            _paymentController = new PaymentController(_paymentService);
+            _paymentController = new PaymentController(_paymentService, _logger);
         }
 
         [Fact]

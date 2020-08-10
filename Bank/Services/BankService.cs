@@ -56,7 +56,7 @@ namespace Bank.Services
             HttpContent httpContent = new StringContent(jsonString);
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            HttpResponseMessage Response = await _client.PutAsync("api/Payment/GetAllPayments", httpContent);
+            HttpResponseMessage Response = await _client.PutAsync("api/Payment/UpdatePayment", httpContent);
 
             if (Response.IsSuccessStatusCode)
             {
