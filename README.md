@@ -16,6 +16,9 @@ Payment Gateway API built with ASP.NET Core 2.2 to process payments for merchant
 - Merchant can get details of a specific payment (GET)
 - Bank client & ValidatePayment to simulate/mock bank processing flow
 
+## Database Schema
+<img src="Screenshots/Screenshot(7).png" width="600">
+
 ## Assumptions
 - Payments have a status
   ```
