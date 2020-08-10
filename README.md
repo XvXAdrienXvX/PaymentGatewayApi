@@ -49,22 +49,8 @@ Navigate to ```https://localhost:5001/index.html``` to check the API documentati
 To test endpoints, you'll need to use a software such as [Postman](https://www.getpostman.com/).
 
 ## Running Bank HttpClient
-1. Open command prompt at the API root path (```/src/PaymentGatewayApi/```) 
-   run the following command:
+1. Open solution in visual studio, run server PaymentGatewayApi
 
-    ```
-    dotnet restore
-    dotnet run
-    ```
-    This will open port 5001 for server to listen
-
-2. Open command prompt as Admin, navigate to root path \PaymentGatewayApi\Bank\bin\Debug\netcoreapp2.2 
-    ```
-    Example
-    cd C:\Users\Repos\\PaymentGatewayApi\Bank\bin\Debug\netcoreapp2.2)
-    ```
-   Then run the following command
-    ```
-    dotnet run Bank.dll
-    ```
+2. Open another instance of the solution in visual studio 
+   Point Startup Projects towards Bank and run the console app
 
