@@ -48,6 +48,34 @@ Navigate to ```https://localhost:5001/index.html``` to check the API documentati
 
 To test endpoints, you'll need to use a software such as [Postman](https://www.getpostman.com/).
 
+```
+sample test data for POST Request
+
+{
+   "MerchantID": 1,
+   "CurrencyId": 1,
+   "CardDetailsId": 1,
+   "OrderID": 1,
+   "Amount": 1000,
+   "Status": 1,
+   "ProcessedDate":"2020-08-07",
+   "Currency": {
+      "Name": "US Dollars",
+      "Code": 1
+   },
+   "CardDetails":{
+       "CustomerID": 1,
+       "CardType": {
+           "CardTypeId": 1,
+           "Name": "VISA"
+       },
+       "CardNumber": "4424007114223158",
+       "Cvv": 123,
+       "ExpiryDate": "2025-03-29"
+   }
+}
+```
+
 ## Running Bank HttpClient
 1. Open solution in visual studio, run server PaymentGatewayApi
 
