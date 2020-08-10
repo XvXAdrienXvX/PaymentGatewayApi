@@ -1,7 +1,5 @@
-﻿using System;
-using DAL.Entities;
+﻿using BusinessEntites.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DAL.Context
 {
@@ -23,7 +21,6 @@ namespace DAL.Context
         public virtual DbSet<Merchant> Merchant { get; set; }
         public virtual DbSet<MerchantAccount> MerchantAccount { get; set; }
         public virtual DbSet<Payment> Payment { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -43,11 +40,11 @@ namespace DAL.Context
 
                 entity.Property(e => e.CardTypeId).HasColumnName("CardTypeID");
 
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
                 entity.Property(e => e.Cvv).HasColumnName("CVV");
 
                 entity.Property(e => e.ExpiryDate).HasColumnType("datetime");
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.HasOne(d => d.CardType)
                     .WithMany(p => p.CardDetails)
@@ -55,11 +52,11 @@ namespace DAL.Context
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CardDetails_CardTypeID_CardType_CardTypeID");
 
-                entity.HasOne(d => d.User)
+                entity.HasOne(d => d.Customer)
                     .WithMany(p => p.CardDetails)
-                    .HasForeignKey(d => d.UserId)
+                    .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CardDetails_UserID_Users_UserID");
+                    .HasConstraintName("FK_CardDetails_CustomerID_Customer_CustomerID");
             });
 
             modelBuilder.Entity<CardType>(entity =>
@@ -75,10 +72,6 @@ namespace DAL.Context
             {
                 entity.Property(e => e.CurrencyId).HasColumnName("CurrencyID");
 
-                entity.Property(e => e.Abbreviation)
-                    .HasMaxLength(3)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.Name)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -86,20 +79,15 @@ namespace DAL.Context
 
             modelBuilder.Entity<Customer>(entity =>
             {
-                entity.HasKey(e => e.CustomerD)
-                    .HasName("PK__Customer__AA72BD0DCEB045F8");
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.Email)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Username)
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Customer)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Customer_UserID_Users_UserID");
             });
 
             modelBuilder.Entity<Merchant>(entity =>
@@ -109,14 +97,6 @@ namespace DAL.Context
                 entity.Property(e => e.Name)
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Merchant)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Merchant_UserID_Users_UserID");
             });
 
             modelBuilder.Entity<MerchantAccount>(entity =>
@@ -140,7 +120,11 @@ namespace DAL.Context
 
                 entity.Property(e => e.CurrencyId).HasColumnName("CurrencyID");
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.MerchantId).HasColumnName("MerchantID");
+
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
+                entity.Property(e => e.ProcessedDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.CardDetails)
                     .WithMany(p => p.Payment)
@@ -154,31 +138,11 @@ namespace DAL.Context
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Payment_CurrencyID_Currency_CurrencyID");
 
-                entity.HasOne(d => d.User)
+                entity.HasOne(d => d.Merchant)
                     .WithMany(p => p.Payment)
-                    .HasForeignKey(d => d.UserId)
+                    .HasForeignKey(d => d.MerchantId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Payment_UserID_Users_UserID");
-            });
-
-            modelBuilder.Entity<Users>(entity =>
-            {
-                entity.HasKey(e => e.UserId)
-                    .HasName("PK__Users__1788CCAC509B3431");
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
-
-                entity.Property(e => e.Email)
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Password)
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Username)
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
+                    .HasConstraintName("FK_Payment_MerchantID_Merchant_MerchantID");
             });
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DAL.Entities
+namespace BusinessEntites.Entities
 {
     public partial class Currency
     {
@@ -12,7 +12,7 @@ namespace DAL.Entities
 
         public int CurrencyId { get; set; }
         public string Name { get; set; }
-        public string Abbreviation { get; set; }
+        public int Code { get; set; }
 
         public virtual ICollection<Payment> Payment { get; set; }
     }

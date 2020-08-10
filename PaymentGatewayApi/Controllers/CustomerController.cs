@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BusinessEntites.Entities;
 using BusinessServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,9 +16,9 @@ namespace PaymentGatewayApi.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] string value)
+        public int Post([FromBody] Payment entity)
         {
-
+            return _customerService.CreatePayment(entity);
         }
     }
 }

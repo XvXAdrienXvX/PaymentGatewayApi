@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DAL.Repository
 {
@@ -8,9 +7,11 @@ namespace DAL.Repository
     {
         TEntity GetByID(object id);
 
-        IEnumerable<TEntity> GetAll();
+        Task<TEntity> GetByIDAsync(object id);
 
-        void Insert(TEntity entity);
+        Task<List<TEntity>> GetAll();
+
+        Task Insert(TEntity entity);
 
         void Delete(object Id);
 

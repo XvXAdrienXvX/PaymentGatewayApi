@@ -1,10 +1,9 @@
-﻿using DAL.Context;
-using DAL.Entities;
+﻿using BusinessEntites.Entities;
+using DAL.Context;
 using DAL.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace DAL.UnitOfWork
 {
@@ -15,6 +14,7 @@ namespace DAL.UnitOfWork
         private IGenericRepository<Merchant> _merchantRepository;
         private IGenericRepository<Payment> _paymentRepository;
         private IGenericRepository<Users> _userRepository;
+        private IGenericRepository<CardDetails> _cardRepository;
 
         #region Repositories
         public IGenericRepository<Customer> CustomerRepository
@@ -48,17 +48,25 @@ namespace DAL.UnitOfWork
                 return _userRepository ?? (_userRepository = new GenericRepository<Users>(_paymentDBContext));
             }
         }
+
+        public IGenericRepository<CardDetails> CardRepository
+        {
+            get
+            {
+                return _cardRepository ?? (_cardRepository = new GenericRepository<CardDetails>(_paymentDBContext));
+            }
+        }
         #endregion
 
-        public void Save()
+        public async Task Save()
         {
             try
             {
-                _paymentDBContext.SaveChanges();
+                await _paymentDBContext.SaveChangesAsync();
             }
             catch(DbUpdateException exc)
             {
-
+                throw new Exception(exc.InnerException.Message);
             }
         }
 

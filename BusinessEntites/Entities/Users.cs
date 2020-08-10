@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DAL.Entities
+namespace BusinessEntites.Entities
 {
     public partial class Users
     {
@@ -16,7 +16,7 @@ namespace DAL.Entities
         public int UserId { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
+        public byte[] Password { get; set; }
 
         public virtual ICollection<CardDetails> CardDetails { get; set; }
         public virtual ICollection<Customer> Customer { get; set; }

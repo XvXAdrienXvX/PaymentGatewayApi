@@ -10,6 +10,5 @@ namespace BusinessServices.Interfaces
         MerchantDTO GetMerchantById(int customerId);
         IEnumerable<MerchantDTO> GetAllMerchants();
         IEnumerable<PaymentDTO> GetAllPayments();
-        int CreatePayment(CardDetailsDTO cardEntity);
     }
 }

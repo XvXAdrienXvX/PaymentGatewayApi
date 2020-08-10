@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace DAL.Repository
 {
@@ -28,9 +28,9 @@ namespace DAL.Repository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public async Task<List<TEntity>> GetAll()
         {
-            return _dbSet.ToList();
+            return await _dbSet.ToListAsync();
         }
 
         public TEntity GetByID(object id)
@@ -38,9 +38,14 @@ namespace DAL.Repository
             return _dbSet.Find(id);
         }
 
-        public void Insert(TEntity entity)
+        public async Task<TEntity> GetByIDAsync(object id)
         {
-            _dbSet.Add(entity);
+            return await _dbSet.FindAsync(id);
+        }
+
+        public async Task Insert(TEntity entity)
+        {
+            await _dbSet.AddAsync(entity);
         }
 
         public void Update(TEntity entity)

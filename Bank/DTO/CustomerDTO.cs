@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace DAL.Entities
+namespace Bank.DTO
 {
-    public partial class Customer
+    public class CustomerDTO
     {
         public int CustomerD { get; set; }
-        public int UserId { get; set; }
         public string Username { get; set; }
-
-        public virtual Users User { get; set; }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
+using BusinessEntites.Entities;
 using BusinessServices.DTO;
 using BusinessServices.Interfaces;
-using DAL.Entities;
 using DAL.UnitOfWork;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Transactions;
 
 namespace BusinessServices
@@ -21,14 +20,23 @@ namespace BusinessServices
             _mapper = mapper;
         }
 
-        public int CreatePayment(PaymentDTO entity)
+        public int CreatePayment(Payment entity)
         {
             // guarantees roll back as a single unit
             using (var scope = new TransactionScope())
             {
                 var payment = new Payment
                 {
-                   Amount = entity.Amount
+                   CurrencyId = entity.CurrencyId,
+                   Amount = entity.Amount,
+                   Status = entity.Status,
+                   CardDetails = new CardDetails
+                   {
+                       CardNumber = (string)entity.CardDetails.GetType().GetProperty("CardNumber").GetValue(entity.CardDetails),
+                       CardTypeId = (int)entity.CardDetails.GetType().GetProperty("CardTypeId").GetValue(entity.CardDetails),
+                       Cvv = (int)entity.CardDetails.GetType().GetProperty("Cvv").GetValue(entity.CardDetails),
+                       ExpiryDate = (DateTime)entity.CardDetails.GetType().GetProperty("ExpiryDate").GetValue(entity.CardDetails)
+                   }
                 };
                 _unitOfWork.PaymentRepository.Insert(payment);
                 _unitOfWork.Save();
