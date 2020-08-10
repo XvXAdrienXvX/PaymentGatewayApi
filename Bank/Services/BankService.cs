@@ -33,6 +33,7 @@ namespace Bank.Services
             {
                 var content = await Response.Content.ReadAsStringAsync();
                 payments = JsonConvert.DeserializeObject<List<PaymentDTO>>(content);
+                Console.WriteLine(Response.StatusCode);
             }
             else
             {
@@ -60,6 +61,7 @@ namespace Bank.Services
 
             if (Response.IsSuccessStatusCode)
             {
+                Console.WriteLine(Response.StatusCode);
                 Console.WriteLine("Payment Response successfull");
             }
 

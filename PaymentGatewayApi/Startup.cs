@@ -41,8 +41,6 @@ namespace PaymentGatewayApi
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddScoped(typeof(ICustomerService), typeof(CustomerService));
-            services.AddScoped(typeof(IMerchantService), typeof(MerchantService));
             services.AddScoped(typeof(IPaymentService), typeof(PaymentService));
             services.AddScoped(typeof(ILogger), typeof(PaymentController));
 
