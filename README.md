@@ -29,7 +29,7 @@ Payment Gateway API built with ASP.NET Core 2.2 to process payments for merchant
 - The acquiring bank is a client connecting to the gateway endpoint. To simulate/mock the bank, a console app is created in folder Bank which uses
   HttpClient to Get All Payments & check for pending payments. 
   
-- ValidatePayment class & CardDetailsValidator class simulate the bank processing flow. The status of payments is updated from Pending to Approve
+- ValidatePayment class & CardDetailsValidator class simulate some of the validations performed through the server. The status of payments is updated from Pending to Approve
 
 - A succesfull payment has an approved status
 
