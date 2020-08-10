@@ -41,6 +41,6 @@ dotnet run
 
 Navigate to ```https://localhost:5001/api/payment/GetAllPayments```
 
-Navigate to ```https://localhost:5001/swagger``` to check the API documentation.
+Navigate to ```https://localhost:5001/index.html``` to check the API documentation.
 
 To test endpoints, you'll need to use a software such as [Postman](https://www.getpostman.com/).
