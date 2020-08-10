@@ -14,9 +14,23 @@ Payment Gateway API built with ASP.NET Core 2.2 to process payments for merchant
 ## Functionalities
 - Merchant can process payment (POST) through the api
 - Merchant can get details of a specific payment (GET)
+- Bank client & ValidatePayment to simulate/mock bank processing flow
+
+## Assumptions
+- Payments have a status
+  ```
+  Pending: 1,
+  Approved: 2
+  ```
+  
+- The acquiring bank is a client connecting to the gateway endpoint. To simulate/mock the bank, a console app is created in folder Bank which uses
+  HttpClient to Get All Payments & check for pending payments. 
+  
+- ValidatePayment class & CardDetailsValidator class simulate the bank processing flow. The status of payments is updated from Pending to Approve
+
+- A succesfull payment has an approved status
 
 ## How to Test
-
 First, install [.NET Core 2.2](https://dotnet.microsoft.com/download/dotnet-core/2.2). Then, open the terminal or command prompt at the API root path (```/src/PaymentGatewayApi/```) 
 and run the following command:
 
