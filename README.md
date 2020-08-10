@@ -82,3 +82,10 @@ sample test data for POST Request
 2. Open another instance of the solution in visual studio 
    Point Startup Projects towards Bank and run the console app
 
+## Unit Test
+xUnit is used to test the PaymentController
+```
+Test Data is stored in a json file (PaymentGatewayTest/PaymentTestData.json)
+
+The file is diserialized to a list of payments initialised in the contructor of the Fake service (PaymentServiceFake)
+```
